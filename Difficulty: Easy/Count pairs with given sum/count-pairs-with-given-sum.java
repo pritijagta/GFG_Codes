@@ -1,17 +1,44 @@
 //{ Driver Code Starts
-// Initial Template for Java
-
 import java.io.*;
 import java.lang.*;
 import java.util.*;
 
+
+// } Driver Code Ends
+class Solution {
+
+    int countPairs(int arr[], int target) {
+        
+        HashMap<Integer,Integer>h=new HashMap<>();
+        
+        int count=0;
+        int sum=0;
+        for(int num:arr)
+        {
+            
+            sum=target-num;
+            
+            if(h.containsKey(sum))
+            {
+                count+=h.get(sum);
+            }
+            
+            h.put(num,h.getOrDefault(num,0)+1);
+        }
+        
+        return count;
+         
+    }
+}
+
+//{ Driver Code Starts.
+
 class Main {
     public static void main(String args[]) throws IOException {
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(read.readLine().trim());
+        int t = Integer.parseInt(read.readLine());
 
         while (t-- > 0) {
-            int k = Integer.parseInt(read.readLine().trim());
             String line = read.readLine().trim();
             String[] numsStr = line.split(" ");
             int[] nums = new int[numsStr.length];
@@ -19,34 +46,14 @@ class Main {
                 nums[i] = Integer.parseInt(numsStr[i]);
             }
 
+            int target = Integer.parseInt(read.readLine());
+
             Solution obj = new Solution();
-            int ans = obj.getPairsCount(nums, k);
-            System.out.println(ans);
+
+            System.out.println(obj.countPairs(nums, target));
+
+            System.out.println("~");
         }
     }
 }
-
 // } Driver Code Ends
-
-
-// User function Template for Java
-
-class Solution {
-    int getPairsCount(int[] arr, int sum) {
-    Map<Integer, Integer> h = new HashMap<>();
-    int count = 0;
-
-    for (int i = 0; i < arr.length; i++) {
-        int complement = sum - arr[i];
-
-        // If the complement exists in the map, it means we found a pair
-        if (h.containsKey(complement)) {
-            count += h.get(complement);
-        }
-
-        // Add the current element to the map or update its count
-        h.put(arr[i], h.getOrDefault(arr[i], 0) + 1);
-    }
-    return count;
-}
-}
